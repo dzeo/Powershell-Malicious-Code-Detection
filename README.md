@@ -9,6 +9,19 @@ The repository is built around four ideas:
 - train incrementally with reviewed and pseudo labels
 - export analyst review queues instead of pretending a single threshold solves everything
 
+## Primary Way to Run It
+
+The main way to use this repository is the single shell wrapper:
+
+```bash
+conda activate power_mal
+./scripts/train_and_score_pipeline.sh data/raw/your_corpus.jsonl real_run_001
+```
+
+This is the default end-to-end entrypoint for the project. It runs the complete training pipeline, writes all phase outputs, saves the final model artifact, and logs the run to `runs/<run_name>/pipeline.log`.
+
+Use the Python scripts directly only when you want to run one part of the system manually.
+
 ## What This Repo Contains
 
 Core pipeline:
@@ -153,12 +166,22 @@ This writes:
 
 ## Train the Pipeline
 
-Simplest command:
+Primary complete-pipeline command:
 
 ```bash
 conda activate power_mal
 ./scripts/train_and_score_pipeline.sh data/raw/your_corpus.jsonl real_run_001
 ```
+
+This single command handles the normal workflow:
+
+- load the dataset
+- build normalized and parsed feature records
+- run cumulative phases such as `10% -> 50% -> 100%`
+- train the baseline and boosting models
+- calibrate the final combined score
+- write phase summaries and review queues
+- save the final inference artifact
 
 With custom column names:
 
@@ -171,7 +194,7 @@ GROUP_COLUMN=family \
 ./scripts/train_and_score_pipeline.sh data/raw/your_samples.csv run_csv_demo
 ```
 
-Direct Python entrypoint:
+Optional advanced/manual entrypoint:
 
 ```bash
 conda activate power_mal
@@ -189,6 +212,8 @@ python scripts/run_incremental_pipeline.py \
 ```
 
 ## Run Inference on Unknown Data
+
+If you already trained a run with the shell wrapper, the saved artifact can be used on unseen data:
 
 ```bash
 conda activate power_mal
@@ -208,6 +233,8 @@ python scripts/run_final_inference.py \
 
 ## Compare Models
 
+This is an advanced evaluation command, not the normal project entrypoint.
+
 ```bash
 conda activate power_mal
 python scripts/train_model_suite.py \
@@ -225,6 +252,8 @@ This compares:
 - ensemble
 
 ## Audit a Run
+
+This is also an advanced validation command.
 
 ```bash
 conda activate power_mal
