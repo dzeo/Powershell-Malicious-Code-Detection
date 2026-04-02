@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local editor state
+.DS_Store
+
+# Generated models and run artifacts
+models/*.joblib
+outputs/*.jsonl
+outputs/*.log
+reports/*.json
+runs/
+
+# Generated review / staging data
+data/review/*.jsonl
+data/review/*.json
+data/staging/*.json
+data/staging/*.jsonl
+
+# Generated synthetic datasets
+data/synthetic/*.jsonl
+data/synthetic/*.csv
+.vscode/
+.DS_store
