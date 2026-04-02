@@ -1,0 +1,11 @@
+scikit-learn>=1.3.0
+pandas>=2.0.0
+numpy>=1.24.0
+umap-learn>=0.5.3
+hdbscan>=0.8.33
+tqdm>=4.65.0        # progress bars for 30M batch processing
+joblib>=1.3.0       # model serialization
+loguru>=0.7.2       # structured application logging
+xgboost==3.2.0
+catboost==1.2.10
+lightgbm==4.6.0
